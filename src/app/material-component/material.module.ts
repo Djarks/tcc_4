@@ -11,6 +11,8 @@ import { MaterialRoutes } from './material.routing';
 import { MaterialModule } from '../shared/material-module';
 import { ConfirmationComponent } from './dialog/confirmation/confirmation.component';
 import { ChangePasswordComponent } from './dialog/change-password/change-password.component';
+import { ManageUserComponent } from './manage-user/manage-user.component';
+import { UserComponent } from './dialog/user/user.component';
 
 
 
@@ -29,6 +31,8 @@ import { ChangePasswordComponent } from './dialog/change-password/change-passwor
   declarations: [
     ConfirmationComponent,
     ChangePasswordComponent,
+    ManageUserComponent,
+    UserComponent,
   ]
 })
 export class MaterialComponentsModule {}
