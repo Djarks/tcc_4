@@ -1,1 +1,69 @@
-<p>user works!</p>
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+        <span class="title-center">{{dialogData.action}} Usuário</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="userForm">
+        <div fxFlex fxLayout="column">
+            <div fxLayout="row wrap" *ngIf="dialogData.action=='Editar'">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>ID</mat-label>
+                    <input matInput formControlName="id" required>
+                    <mat-error *ngIf="userForm.controls.id.touched && userForm.controls.id.invalid">
+                        <span *ngIf="userForm.controls.id.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Nome</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="userForm.controls.name.touched && userForm.controls.name.invalid">
+                        <span *ngIf="userForm.controls.name.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Telefone</mat-label>
+                    <input matInput formControlName="contactNumber" required>
+                    <mat-error *ngIf="userForm.controls.contactNumber.touched && userForm.controls.contactNumber.invalid">
+                        <span *ngIf="userForm.controls.contactNumber.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>e-Mail</mat-label>
+                    <input matInput formControlName="email" required>
+                    <mat-error *ngIf="userForm.controls.email.touched && userForm.controls.email.invalid">
+                        <span *ngIf="userForm.controls.email.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Status</mat-label>
+                    <input matInput formControlName="status" required>
+                    <mat-error *ngIf="userForm.controls.status.touched && userForm.controls.status.invalid">
+                        <span *ngIf="userForm.controls.status.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Perfil</mat-label>
+                    <input matInput formControlName="role" required>
+                    <mat-error *ngIf="userForm.controls.role.touched && userForm.controls.role.invalid">
+                        <span *ngIf="userForm.controls.role.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-raised-button color="primary" type="submit" (click)="handleSubmit()">{{action}}</button>
+    <button mat-raised-button color="primary" mat-dialog-close>Fechar</button>
+</mat-dialog-actions>

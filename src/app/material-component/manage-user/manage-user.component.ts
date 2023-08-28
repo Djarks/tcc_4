@@ -92,12 +92,12 @@ export class ManageUserComponent implements OnInit{
     const dialogRef = this.dialog.open(ConfirmationComponent, dialogConfig);
     const sub = dialogRef.componentInstance.onEmitStatusChange.subscribe((response)=>{
       this.ngxService.start();
-      this.deleteOm(values.codom);
+      this.deleteUser(values.id);
       dialogRef.close();
     })
   }
 
-  deleteOm(id: any){
+  deleteUser(id: any){
     this.userService.delete(id).subscribe((response: any)=>{
       this.ngxService.stop();
       this.tableData();

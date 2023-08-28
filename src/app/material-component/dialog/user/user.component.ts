@@ -57,8 +57,7 @@ export class UserComponent implements OnInit{
       contactNumber: formData.contactNumber,
       email: formData.email,
       status: formData.status,
-      role: formData.role,
-      password: formData.password
+      role: formData.role
     }
     this.userService.add(data).subscribe((response: any)=>{
       this.dialogRef.close();
@@ -85,8 +84,7 @@ export class UserComponent implements OnInit{
       contactNumber: formData.contactNumber,
       email: formData.email,
       status: formData.status,
-      role: formData.role,
-      password: formData.password
+      role: formData.role
     }
     this.userService.update(data).subscribe((response: any)=>{
       this.dialogRef.close();
