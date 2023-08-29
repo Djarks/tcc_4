@@ -13,6 +13,9 @@ import { ConfirmationComponent } from './dialog/confirmation/confirmation.compon
 import { ChangePasswordComponent } from './dialog/change-password/change-password.component';
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { UserComponent } from './dialog/user/user.component';
+import { ManageMilitarComponent } from './manage-militar/manage-militar.component';
+import { MilitarComponent } from './dialog/militar/militar.component';
+import { AuditoriaComponent } from './auditoria/auditoria.component';
 
 
 
@@ -33,6 +36,9 @@ import { UserComponent } from './dialog/user/user.component';
     ChangePasswordComponent,
     ManageUserComponent,
     UserComponent,
+    ManageMilitarComponent,
+    MilitarComponent,
+    AuditoriaComponent
   ]
 })
 export class MaterialComponentsModule {}

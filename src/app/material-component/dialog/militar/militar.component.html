@@ -1,0 +1,153 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+        <span class="title-center">{{dialogData.action}} Militar</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="militarForm">
+        <div fxFlex fxLayout="column">
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>CPF</mat-label>
+                    <input matInput formControlName="cpf" required>
+                    <mat-error *ngIf="militarForm.controls.cpf.touched && militarForm.controls.cpf.invalid">
+                        <span *ngIf="militarForm.controls.cpf.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Nome Completo</mat-label>
+                    <input matInput formControlName="nome_compl" required>
+                    <mat-error *ngIf="militarForm.controls.nome_compl.touched && militarForm.controls.nome_compl.invalid">
+                        <span *ngIf="militarForm.controls.nome_compl.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Nome de Guerra</mat-label>
+                    <input matInput formControlName="nome_guerra" required>
+                    <mat-error *ngIf="militarForm.controls.nome_guerra.touched && militarForm.controls.nome_guerra.invalid">
+                        <span *ngIf="militarForm.controls.nome_guerra.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Data de Nascimento</mat-label>
+                    <input matInput formControlName="data_nasc" required>
+                    <mat-error
+                        *ngIf="militarForm.controls.data_nasc.touched && militarForm.controls.data_nasc.invalid">
+                        <span *ngIf="militarForm.controls.data_nasc.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Sexo</mat-label>
+                    <input matInput formControlName="sexo" required>
+                    <mat-error
+                        *ngIf="militarForm.controls.sexo.touched && militarForm.controls.sexo.invalid">
+                        <span *ngIf="militarForm.controls.sexo.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Situação</mat-label>
+                    <input matInput formControlName="situacao" required>
+                    <mat-error
+                        *ngIf="militarForm.controls.situacao.touched && militarForm.controls.situacao.invalid">
+                        <span *ngIf="militarForm.controls.situacao.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Data de Praça</mat-label>
+                    <input matInput formControlName="data_praca" required>
+                    <mat-error
+                        *ngIf="militarForm.controls.data_praca.touched && militarForm.controls.data_praca.invalid">
+                        <span *ngIf="militarForm.controls.data_praca.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>QAS</mat-label>
+                    <input matInput formControlName="qas" required>
+                    <mat-error
+                        *ngIf="militarForm.controls.qas.touched && militarForm.controls.qas.invalid">
+                        <span *ngIf="militarForm.controls.qas.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Tipo</mat-label>
+                    <input matInput formControlName="tipo" required>
+                    <mat-error
+                        *ngIf="militarForm.controls.tipo.touched && militarForm.controls.tipo.invalid">
+                        <span *ngIf="militarForm.controls.tipo.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>EV</mat-label>
+                    <input matInput formControlName="ev" required>
+                    <mat-error
+                        *ngIf="militarForm.controls.ev.touched && militarForm.controls.ev.invalid">
+                        <span *ngIf="militarForm.controls.ev.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Prec-CP</mat-label>
+                    <input matInput formControlName="preccp" required>
+                    <mat-error
+                        *ngIf="militarForm.controls.preccp.touched && militarForm.controls.preccp.invalid">
+                        <span *ngIf="militarForm.controls.preccp.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>OM</mat-label>
+                    <input matInput formControlName="om" required>
+                    <mat-error
+                        *ngIf="militarForm.controls.om.touched && militarForm.controls.om.invalid">
+                        <span *ngIf="militarForm.controls.om.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Posto / Graduação</mat-label>
+                    <input matInput formControlName="cod_posto_grad" required>
+                    <mat-error
+                        *ngIf="militarForm.controls.cod_posto_grad.touched && militarForm.controls.cod_posto_grad.invalid">
+                        <span *ngIf="militarForm.controls.cod_posto_grad.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Data da última promoção</mat-label>
+                    <input matInput formControlName="data_ult_prom" required>
+                    <mat-error
+                        *ngIf="militarForm.controls.data_ult_prom.touched && militarForm.controls.data_ult_prom.invalid">
+                        <span *ngIf="militarForm.controls.data_ult_prom.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-raised-button color="primary" type="submit" (click)="handleSubmit()"
+        [disabled]="!(militarForm.valid && militarForm.dirty)">{{action}}</button>
+    <button mat-raised-button color="primary" mat-dialog-close>Fechar</button>
+</mat-dialog-actions>

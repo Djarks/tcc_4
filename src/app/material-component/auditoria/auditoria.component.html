@@ -1,0 +1,83 @@
+<body>
+    <mat-card>
+        <b><span>Auditoria</span></b>
+    </mat-card>
+    <br>
+
+    <div class="column">
+        <div class="card">
+            <div class="container">
+                <h2 class="title">Total de militares cadastrados:</h2>
+                <h1 class="title">{{data?.militar}}</h1>
+                <p><button class="button" [routerLink]="['/picafumo/militar']">Ver militares</button> </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card">
+            <div class="container">
+                <h2 class="title">Total de beneficiados de Adic Habilitação:</h2>
+                <h1 class="title">{{data?.adicHabilitacao}}</h1>
+                <p><button class="button" [routerLink]="['/picafumo/habilitacao']">Ver beneficiados</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card">
+            <div class="container">
+                <h2 class="title">Total de beneficiados com Altos Estudos Militares - Categoria I:</h2>
+                <h1 class="title">{{data?.altosEstudosCat1}}</h1>
+                <p><button class="button" [routerLink]="['/picafumo/altosestudoscat1']">Ver beneficiados</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card">
+            <div class="container">
+                <h2 class="title">Total de beneficiados com Altos Estudos Militares - Categoria II:</h2>
+                <h1 class="title">{{data?.altosEstudosCat2}}</h1>
+                <p><button class="button" [routerLink]="['/picafumo/altosestudoscat2']">Ver beneficiados</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card">
+            <div class="container">
+                <h2 class="title">Total de beneficiados com Aperfeiçoamento:</h2>
+                <h1 class="title">{{data?.aperfeicoamento}}</h1>
+                <p><button class="button" [routerLink]="['/picafumo/aperfeicoamento']">Ver beneficiados</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card">
+            <div class="container">
+                <h2 class="title">Total de beneficiados com Especialização:</h2>
+                <h1 class="title">{{data?.especializacao}}</h1>
+                <p><button class="button" [routerLink]="['/picafumo/especializacao']">Ver beneficiados</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card">
+            <div class="container">
+                <h2 class="title">Total de beneficiados com Formação:</h2>
+                <h1 class="title">{{data?.formacao}}</h1>
+                <p><button class="button" [routerLink]="['/picafumo/formacao']">Ver beneficiados</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>

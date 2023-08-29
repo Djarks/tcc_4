@@ -43,7 +43,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     FullComponent,
     AppHeaderComponent,
     AppSidebarComponent,
-    BestSellerComponent,
+    BestSellerComponent
   ],
   imports: [
     BrowserModule,
