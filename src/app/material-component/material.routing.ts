@@ -4,7 +4,6 @@ import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ManageMilitarComponent } from './manage-militar/manage-militar.component';
 import { AuditoriaComponent } from './auditoria/auditoria.component';
 
-
 export const MaterialRoutes: Routes = [
     {
         path: 'user',
@@ -23,7 +22,7 @@ export const MaterialRoutes: Routes = [
         }
     },
     {
-        path: 'auditoria',
+        path: 'auditoria/:cpf',
         component: AuditoriaComponent,
         canActivate: [RouteGuardService],
         data:{

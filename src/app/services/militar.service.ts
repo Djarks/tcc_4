@@ -26,6 +26,12 @@ export class MilitarService {
     return this.httpClient.get(this.url + "/militar/get/");
   }
 
+  getMilitarByCpf(cpf: number){
+    return this.httpClient.get(this.url + "/militar/getByCpf/"+cpf, {
+      headers: new HttpHeaders().set('Content-Type', "application/json")
+    })
+  }
+
 
   delete(cpf: any) {
     return this.httpClient.delete(this.url + "/militar/delete/"+cpf, {

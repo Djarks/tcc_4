@@ -16,6 +16,8 @@ import { UserComponent } from './dialog/user/user.component';
 import { ManageMilitarComponent } from './manage-militar/manage-militar.component';
 import { MilitarComponent } from './dialog/militar/militar.component';
 import { AuditoriaComponent } from './auditoria/auditoria.component';
+import { ResultadoComponent } from './dialog/resultado/resultado.component';
+import { AuditarMilitarComponent } from './dialog/auditar-militar/auditar-militar.component';
 
 
 
@@ -38,7 +40,9 @@ import { AuditoriaComponent } from './auditoria/auditoria.component';
     UserComponent,
     ManageMilitarComponent,
     MilitarComponent,
-    AuditoriaComponent
+    AuditoriaComponent,
+    ResultadoComponent,
+    AuditarMilitarComponent
   ]
 })
 export class MaterialComponentsModule {}

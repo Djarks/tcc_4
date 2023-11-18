@@ -1,83 +1,74 @@
-<body>
-    <mat-card>
-        <b><span>Auditoria</span></b>
-    </mat-card>
-    <br>
-
-    <div class="column">
-        <div class="card">
-            <div class="container">
-                <h2 class="title">Total de militares cadastrados:</h2>
-                <h1 class="title">{{data?.militar}}</h1>
-                <p><button class="button" [routerLink]="['/picafumo/militar']">Ver militares</button> </p>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Auditar Militares</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions align="end">
+        <button mat-flat-button color="primary" class="float-right" [routerLink]="['/picafumo/militar']">Gerenciar Militares</button>
+    </mat-card-actions>
+</mat-card>
+<hr>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Carregamento de arquivos</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions align="end">
+        <input type="file" class="file-input" [accept]="requiredFileType" (change)="onChange($event)" #fileUpload>
+            <div class="file-upload">
+                <div class="tooltip">
+                    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                        <mat-icon>folder</mat-icon>
+                    </button>
+                    <span class="tooltiptext">Selecionar o arquivo</span>
+                </div>
             </div>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="card">
-            <div class="container">
-                <h2 class="title">Total de beneficiados de Adic Habilitação:</h2>
-                <h1 class="title">{{data?.adicHabilitacao}}</h1>
-                <p><button class="button" [routerLink]="['/picafumo/habilitacao']">Ver beneficiados</button>
-                </p>
+            {{fileName || "Nenhum arquivo carregado."}}
+            <div class="tooltip">
+                <button mat-mini-fab color="primary" class="upload-btn" id="btnUpload" (click)="onUpload() " hover="Carregar arquivo">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+                <span class="tooltiptext">Carregar o arquivo</span>
             </div>
-        </div>
-    </div>
+    </mat-card-actions>
+</mat-card>
+<hr>
+<div class="responsive-table">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="postoGrad">
+            <th mat-header-cell *matHeaderCellDef>Posto / Grad</th>
+            <td mat-cell *matCellDef="let element">{{element.postoGrad}}</td>
+        </ng-container>
 
-    <div class="column">
-        <div class="card">
-            <div class="container">
-                <h2 class="title">Total de beneficiados com Altos Estudos Militares - Categoria I:</h2>
-                <h1 class="title">{{data?.altosEstudosCat1}}</h1>
-                <p><button class="button" [routerLink]="['/picafumo/altosestudoscat1']">Ver beneficiados</button>
-                </p>
-            </div>
-        </div>
-    </div>
+        <ng-container matColumnDef="nomeCompl">
+            <th mat-header-cell *matHeaderCellDef>Nome Completo</th>
+            <td mat-cell *matCellDef="let element">{{element.nomeCompl}}</td>
+        </ng-container>
 
-    <div class="column">
-        <div class="card">
-            <div class="container">
-                <h2 class="title">Total de beneficiados com Altos Estudos Militares - Categoria II:</h2>
-                <h1 class="title">{{data?.altosEstudosCat2}}</h1>
-                <p><button class="button" [routerLink]="['/picafumo/altosestudoscat2']">Ver beneficiados</button>
-                </p>
-            </div>
-        </div>
-    </div>
+        <ng-container matColumnDef="cpf">
+            <th mat-header-cell *matHeaderCellDef>CPF</th>
+            <td mat-cell *matCellDef="let element">{{element.cpf}}</td>
+        </ng-container>
 
-    <div class="column">
-        <div class="card">
-            <div class="container">
-                <h2 class="title">Total de beneficiados com Aperfeiçoamento:</h2>
-                <h1 class="title">{{data?.aperfeicoamento}}</h1>
-                <p><button class="button" [routerLink]="['/picafumo/aperfeicoamento']">Ver beneficiados</button>
-                </p>
-            </div>
-        </div>
-    </div>
+        <ng-container matColumnDef="curso">
+            <th mat-header-cell *matHeaderCellDef>Curso</th>
+            <td mat-cell *matCellDef="let element">{{element.curso}}</td>
+        </ng-container>
 
-    <div class="column">
-        <div class="card">
-            <div class="container">
-                <h2 class="title">Total de beneficiados com Especialização:</h2>
-                <h1 class="title">{{data?.especializacao}}</h1>
-                <p><button class="button" [routerLink]="['/picafumo/especializacao']">Ver beneficiados</button>
-                </p>
-            </div>
-        </div>
-    </div>
+        <ng-container matColumnDef="modalidade">
+            <th mat-header-cell *matHeaderCellDef>Modalidade</th>
+            <td mat-cell *matCellDef="let element">{{element.modalidade}}</td>
+        </ng-container>
 
-    <div class="column">
-        <div class="card">
-            <div class="container">
-                <h2 class="title">Total de beneficiados com Formação:</h2>
-                <h1 class="title">{{data?.formacao}}</h1>
-                <p><button class="button" [routerLink]="['/picafumo/formacao']">Ver beneficiados</button>
-                </p>
-            </div>
-        </div>
-    </div>
+        <ng-container matColumnDef="beneficio">
+            <th mat-header-cell *matHeaderCellDef>Benefício</th>
+            <td mat-cell *matCellDef="let element">{{element.beneficio}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="porcentagem">
+            <th mat-header-cell *matHeaderCellDef>Porcentagem</th>
+            <td mat-cell *matCellDef="let element">{{element.porcentagem}}</td>
+        </ng-container>
 
-</body>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+</div>

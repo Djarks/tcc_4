@@ -1,41 +1,96 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { AuditoriaService } from '../../services/auditoria.service';
+import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { SnackbarService } from '../../services/snackbar.service';
-import { GlobalConstants } from '../../shared/global-constants';
+import { SnackbarService } from 'src/app/services/snackbar.service';
+import { GlobalConstants } from 'src/app/shared/global-constants';
+import { AuditoriaService } from 'src/app/services/auditoria.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { ResultadoComponent } from '../dialog/resultado/resultado.component';
+import { AuditarMilitarComponent } from '../dialog/auditar-militar/auditar-militar.component';
 
 @Component({
-	selector: 'app-auditoria',
-	templateUrl: './auditoria.component.html',
-	styleUrls: ['./auditoria.component.scss']
+  selector: 'app-auditoria',
+  templateUrl: './auditoria.component.html',
+  styleUrls: ['./auditoria.component.scss']
 })
-export class AuditoriaComponent implements AfterViewInit {
-	responseMessage: any;
-	data: any;
+export class AuditoriaComponent implements OnInit{
+  displayedColumns: string[] = ['postoGrad', 'nomeCompl', 'cpf', 'curso', 'modalidade', 'beneficio', 'porcentagem'];
+  dataSource: any;
+  responseMessage: any;
+  public get cpfAuditado(){
+	  return Number(this.activatedRoute.snapshot.paramMap.get('cpf'));
+  }
+  requiredFileType: string = '';
+  data: any;
+  fileName = '';
+  shortLink: string = "";
+  loading: boolean = false; // Flag variable
+  file: File | any = null;
 
-	ngAfterViewInit() { }
+  constructor(private auditoriaService: AuditoriaService,
+    private ngxService: NgxUiLoaderService,
+	  private dialog: MatDialog,
+    private snackbarService: SnackbarService,
+	  private router: Router,
+	  private matDialogConfig: MatDialogConfig,
+	  private activatedRoute: ActivatedRoute){
+  }
 
-	constructor(private auditoriaService:AuditoriaService,
-		private ngxService: NgxUiLoaderService,
-		private snackbarService: SnackbarService) {
-			this.ngxService.start();
-			this.auditoriaData();
+  ngOnInit(): void {
+    this.ngxService.start();
+    console.log(this.cpfAuditado);
+	  this.getData(this.cpfAuditado);
+    this.tableData(this.cpfAuditado);
+  }
+
+  getData(cpf: number){
+	this.auditoriaService.getData(cpf);
+  }
+
+  tableData(cpf: number){
+    this.auditoriaService.getData(cpf).subscribe((response: any)=>{
+      this.ngxService.stop();
+      this.dataSource = new MatTableDataSource(response);
+    }, (error: any)=>{
+      this.ngxService.stop();
+      console.log(error);
+      if(error.error?.message){
+        this.responseMessage = error.error?.message;
+      }
+      else{
+        this.responseMessage = GlobalConstants.genericError;
+      }
+      this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.error);
+    })
+  }
+
+	onChange(event: any) {
+		this.file = event.target.files[0];
+		this.fileName = this.file.name;
 	}
-	
-	auditoriaData(){
-		this.auditoriaService.getDetails().subscribe((response:any)=>{
-			this.ngxService.stop();
-			this.data = response;
-		}, (error:any)=>{
-			this.ngxService.stop();
-			console.log(error);
-			if(error.error?.message){
-				this.responseMessage = error.error?.message;
+
+	onUpload() {
+		this.loading = !this.loading;
+		console.log(this.file);
+		this.auditoriaService.upload(this.file).subscribe(
+			(event: any) => {
+				if (typeof (event) === 'object') {
+					// Short link via api response
+					this.shortLink = event.link;
+					this.loading = false; // Flag variable 
+				};
 			}
-			else{
-				this.responseMessage = GlobalConstants.genericError;
-			}
-			this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.error);
-		})
+		);
+		this.fileName = "Arquivo carregado com sucesso.";
+		this.handleUploadAction();
+	}
+
+	handleUploadAction(){
+		fetch('http://localhost:8080/upload/audit/5513291657')
+			.then(res => res.json())
+			.then(data => console.log(data))
+		this.dialog.open(AuditarMilitarComponent, this.data)
 	}
 }

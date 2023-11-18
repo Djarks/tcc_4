@@ -98,7 +98,7 @@ export class ManageMilitarComponent implements OnInit{
     })
   }
 
-  deleteMilitar(cpf: any){
+  deleteMilitar(cpf: number){
     this.militarService.delete(cpf).subscribe((response: any)=>{
       this.ngxService.stop();
       this.tableData();

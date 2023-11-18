@@ -51,6 +51,9 @@
                 <button mat-icon-button color="primary" matTooltip="Deletar" (click)="handleDeleteAction(element)">
                     <mat-icon>delete</mat-icon>
                 </button>
+                <button mat-icon-button color="primary" matTooltip="Auditar" [routerLink]="['/picafumo/auditoria/'+element.cpf]">
+                    <mat-icon>search</mat-icon>
+                </button>
             </td>
         </ng-container>
 
