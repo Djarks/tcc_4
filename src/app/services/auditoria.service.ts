@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 export class AuditoriaService{
   url = environment.apiUrl;
-  baseApiUrl = 'http://localhost:8080/upload';
+  baseApiUrl = 'http://localhost:8080/upload/';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -23,7 +23,7 @@ export class AuditoriaService{
     return this.httpClient.get(this.url + "/auditoria/get")
   }
 
-  upload(file: any):Observable<any> {
+  upload(cpf: Number, file: any):Observable<any> {
   
     // Create form data
     const formData = new FormData();
@@ -33,7 +33,7 @@ export class AuditoriaService{
 
     // Make http post request over api
     // with formData as req
-    return this.httpClient.post(this.baseApiUrl, formData)
+    return this.httpClient.post(this.baseApiUrl+cpf, formData)
   }
 
   getAuditoria(cpf: Number){

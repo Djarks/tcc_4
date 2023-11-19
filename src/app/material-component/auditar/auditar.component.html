@@ -23,18 +23,12 @@
             </div>
             {{fileName || "Nenhum arquivo carregado."}}
             <div class="tooltip">
-                <button mat-mini-fab color="primary" class="upload-btn" id="btnUpload" (click)="onUpload()" hover="Carregar arquivo">
+                <button mat-mini-fab color="primary" class="upload-btn" id="btnUpload" (click)="onUpload(this.cpfAuditado)" hover="Carregar arquivo">
                     <mat-icon>attach_file</mat-icon>
                 </button>
                 <span class="tooltiptext">Carregar o arquivo</span>
             </div>
     </mat-card-actions>
-</mat-card>
-<hr>
-<mat-card>
-    <div>
-        <textarea class="textArea" id="resultText" placeholder="Os dados do seu PDF aparecerão aqui..."></textarea>
-    </div>
 </mat-card>
 <hr>
 <div class="responsive-table">

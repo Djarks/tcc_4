@@ -34,7 +34,6 @@ export class AuditarComponent implements OnInit{
 
   ngOnInit(): void {
     this.ngxService.start();
-    console.log(this.cpfAuditado);
 	  this.getData(this.cpfAuditado);
     this.tableData(this.cpfAuditado);
   }
@@ -65,28 +64,21 @@ export class AuditarComponent implements OnInit{
 		this.fileName = this.file.name;
 	}
 
-	onUpload() {
+	onUpload(cpf: Number) {
 		this.loading = !this.loading;
 		console.log(this.file);
-		this.auditoriaService.upload(this.file).subscribe(
+		this.auditoriaService.upload(cpf, this.file).subscribe(
 			(event: any) => {
 				if (typeof (event) === 'object') {
-					// Short link via api response
 					this.shortLink = event.link;
-					this.loading = false; // Flag variable 
+					this.loading = false;
 				};
 			}
-		);
-		
-    /*fetch("http://localhost:8080/upload/audit/5513291657")
+		);		
+    this.fileName = "Arquivo carregado com sucesso.";
+    /*fetch("http://localhost:8080/upload/audit/"+this.cpfAuditado)
 		.then(res => {
 		  return res.json()
 		});*/
-		
-    this.fileName = "Arquivo carregado com sucesso.";
-		
-    //btnUpload?.addEventListener("click", () =>{
-		//})
-
   }
 }

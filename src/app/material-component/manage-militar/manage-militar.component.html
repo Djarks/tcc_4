@@ -51,7 +51,7 @@
                 <button mat-icon-button color="primary" matTooltip="Deletar" (click)="handleDeleteAction(element)">
                     <mat-icon>delete</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" matTooltip="Auditar" [routerLink]="['/picafumo/auditoria/5513291657']">
+                <button mat-icon-button color="primary" matTooltip="Auditar" [routerLink]="['/picafumo/auditoria/'+element.cpf]">
                     <!--<button mat-icon-button color="primary" matTooltip="Auditar" (click)="handleAuditAction(element.cpf)">-->
                     <mat-icon>search</mat-icon>
                 </button>
