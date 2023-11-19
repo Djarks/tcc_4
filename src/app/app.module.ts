@@ -19,6 +19,7 @@ import { AppHeaderComponent } from './layouts/full/header/header.component';
 import { AppSidebarComponent } from './layouts/full/sidebar/sidebar.component';
 import { BestSellerComponent } from './best-seller/best-seller.component';
 import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
+import { AuditoriaService } from './services/auditoria.service';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   text: "Carregando...",
@@ -57,7 +58,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     HttpClientModule,
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
   ],
-  providers: [HttpClientModule,{provide:HTTP_INTERCEPTORS, useClass:TokenInterceptorInterceptor, multi: true}],
+  providers: [HttpClientModule,{provide:HTTP_INTERCEPTORS, useClass:TokenInterceptorInterceptor, multi: true}, AuditoriaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

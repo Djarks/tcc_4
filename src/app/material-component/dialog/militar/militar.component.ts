@@ -2,6 +2,7 @@ import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MilitarService } from 'src/app/services/militar.service';
+/*import { OmService } from 'src/app/services/om.service';*/
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { GlobalConstants } from 'src/app/shared/global-constants';
 
@@ -17,11 +18,13 @@ export class MilitarComponent implements OnInit {
   dialogAction: any = "Adicionar";
   action: any = "Adicionar";
   responseMessage: any;
+  //om: any = [];
 
   constructor(@Inject(MAT_DIALOG_DATA) public dialogData: any,
   private formBuilder: FormBuilder,
   private militarService: MilitarService,
   public dialogRef: MatDialogRef<MilitarComponent>,
+  /*private omService: OmService,*/
   private snackbarService: SnackbarService){}
 
   ngOnInit(): void {
@@ -47,8 +50,24 @@ export class MilitarComponent implements OnInit {
       this.action = "Atualizar";
       this.militarForm.patchValue(this.dialogData.data);
     }
+
+    /*this.getOm();*/
   }
-  
+/*
+  getOm(){
+    this.omService.getOm().subscribe((response: any)=>{
+      this.om = response;
+    }, (error: any)=>{
+      if(error.error?.message){
+        this.responseMessage = error.error?.message;
+      }
+      else{
+        this.responseMessage = GlobalConstants.genericError;
+      }
+      this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.error);
+    })
+  }
+*/
   handleSubmit(){
     if(this.dialogAction === 'Editar'){
       this.edit();

@@ -1,31 +1,26 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
-export interface AuditoriaData{
-  postoGrad: string,
-  nomeCompl: string,
-  cpf: number,
-  curso: string,
-  modalidade: string,
-  beneficio: string,
-  porcentagem: number
-}
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuditoriaService {
+
+export class AuditoriaService{
   url = environment.apiUrl;
   baseApiUrl = 'http://localhost:8080/upload';
 
   constructor(private httpClient: HttpClient) { }
 
-  getData(cpf: number){
+  getData(cpf: Number){
     return this.httpClient.get(this.url + "/auditoria/"+cpf, {
       headers: new HttpHeaders().set('Content-Type', "application/json")
     })
+  }
+
+  get() {
+    return this.httpClient.get(this.url + "/auditoria/get")
   }
 
   upload(file: any):Observable<any> {
@@ -41,7 +36,7 @@ export class AuditoriaService {
     return this.httpClient.post(this.baseApiUrl, formData)
   }
 
-  getAuditoria(cpf: number){
+  getAuditoria(cpf: Number){
     return this.httpClient.get(this.url + "/auditoria/upload/audit/"+cpf, {
       headers: new HttpHeaders().set('Content-Type', "application/json")
     })

@@ -1,39 +1,50 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { MilitarService } from 'src/app/services/militar.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { GlobalConstants } from 'src/app/shared/global-constants';
-import { MilitarComponent } from '../dialog/militar/militar.component';
-import { ConfirmationComponent } from '../dialog/confirmation/confirmation.component';
+import { AuditoriaService } from 'src/app/services/auditoria.service';
 
 @Component({
   selector: 'app-auditar',
   templateUrl: './auditar.component.html',
   styleUrls: ['./auditar.component.scss']
 })
+
 export class AuditarComponent implements OnInit{
-  displayedColumns: string[] = ['abrev', 'qas', 'nome_compl', 'cpf', 'sigla', 'edit'];
+  displayedColumns: string[] = ['postoGrad', 'nomeCompl', 'cpf', 'curso', 'modalidade', 'beneficio', 'porcentagem'];
   dataSource: any;
   responseMessage: any;
+  public get cpfAuditado(){
+	  return Number(this.activatedRoute.snapshot.paramMap.get('cpf'));
+  }
+  requiredFileType: string = '';
+  data: any;
+  fileName = '';
+  shortLink: string = "";
+  loading: boolean = false; // Flag variable
+  file: File | any = null;
 
-  constructor(private militarService: MilitarService,
+  constructor(private auditoriaService: AuditoriaService,
     private ngxService: NgxUiLoaderService,
-    private dialog: MatDialog,
     private snackbarService: SnackbarService,
-    private router: Router){
-
+	  private activatedRoute: ActivatedRoute){
   }
 
   ngOnInit(): void {
     this.ngxService.start();
-    this.tableData();
+    console.log(this.cpfAuditado);
+	  this.getData(this.cpfAuditado);
+    this.tableData(this.cpfAuditado);
   }
 
-  tableData(){
-    this.militarService.getMilitares().subscribe((response: any)=>{
+  getData(cpf: number){
+	  this.auditoriaService.getData(cpf);
+  }
+
+  tableData(cpf: number){
+    this.auditoriaService.getData(cpf).subscribe((response: any)=>{
       this.ngxService.stop();
       this.dataSource = new MatTableDataSource(response);
     }, (error: any)=>{
@@ -49,71 +60,33 @@ export class AuditarComponent implements OnInit{
     })
   }
 
-  applyFilter(event:Event){
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+	onChange(event: any) {
+		this.file = event.target.files[0];
+		this.fileName = this.file.name;
+	}
 
-  handleAddAction(){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
-      action: 'Adicionar'
-    }
-    dialogConfig.width = "850px";
-    const dialogRef = this.dialog.open(MilitarComponent, dialogConfig);
-    this.router.events.subscribe(()=>{
-      dialogRef.close();
-    });
-    const sub = dialogRef.componentInstance.onAddMilitar.subscribe((response)=>{
-      this.tableData();
-    })
-  }
+	onUpload() {
+		this.loading = !this.loading;
+		console.log(this.file);
+		this.auditoriaService.upload(this.file).subscribe(
+			(event: any) => {
+				if (typeof (event) === 'object') {
+					// Short link via api response
+					this.shortLink = event.link;
+					this.loading = false; // Flag variable 
+				};
+			}
+		);
+		
+    /*fetch("http://localhost:8080/upload/audit/5513291657")
+		.then(res => {
+		  return res.json()
+		});*/
+		
+    this.fileName = "Arquivo carregado com sucesso.";
+		
+    //btnUpload?.addEventListener("click", () =>{
+		//})
 
-  handleEditAction(values: any){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {
-      action: 'Editar',
-      data: values
-    }
-    dialogConfig.width = "850px";
-    const dialogRef = this.dialog.open(MilitarComponent, dialogConfig);
-    this.router.events.subscribe(()=>{
-      dialogRef.close();
-    });
-    const sub = dialogRef.componentInstance.onEditMilitar.subscribe((response)=>{
-      this.tableData();
-    })
-  }
-
-  handleDeleteAction(values: any){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data={
-      message: 'excluir o militar '+values.abrev+' '+values.nome_compl
-    };
-    const dialogRef = this.dialog.open(ConfirmationComponent, dialogConfig);
-    const sub = dialogRef.componentInstance.onEmitStatusChange.subscribe((response)=>{
-      this.ngxService.start();
-      this.deleteMilitar(values.cpf);
-      dialogRef.close();
-    })
-  }
-
-  deleteMilitar(cpf: number){
-    this.militarService.delete(cpf).subscribe((response: any)=>{
-      this.ngxService.stop();
-      this.tableData();
-      this.responseMessage = response?.message;
-      this.snackbarService.openSnackBar(this.responseMessage, "Militar excluído com sucesso.")
-    }, (error: any)=>{
-      this.ngxService.stop();
-      if(error.error?.message){
-        this.responseMessage = error.error?.message;
-      }
-      else{
-        this.responseMessage = GlobalConstants.genericError;
-      }
-      this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.error)
-    })
   }
 }
-

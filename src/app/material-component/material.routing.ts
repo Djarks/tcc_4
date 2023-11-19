@@ -24,7 +24,7 @@ export const MaterialRoutes: Routes = [
     },
     {
         path: 'auditoria',
-        component: AuditarComponent,
+        component: AuditoriaComponent,
         canActivate: [RouteGuardService],
         data:{
             expectedRole: ['admin', 'user']
@@ -32,7 +32,7 @@ export const MaterialRoutes: Routes = [
     },
     {
         path: 'auditoria/:cpf',
-        component: AuditoriaComponent,
+        component: AuditarComponent,
         canActivate: [RouteGuardService],
         data:{
             expectedRole: ['admin', 'user']

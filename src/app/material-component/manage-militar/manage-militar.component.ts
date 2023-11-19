@@ -8,11 +8,13 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 import { GlobalConstants } from 'src/app/shared/global-constants';
 import { MilitarComponent } from '../dialog/militar/militar.component';
 import { ConfirmationComponent } from '../dialog/confirmation/confirmation.component';
+import { AuditoriaService } from 'src/app/services/auditoria.service';
 
 @Component({
   selector: 'app-manage-militar',
   templateUrl: './manage-militar.component.html',
   styleUrls: ['./manage-militar.component.scss']
+  //providers: [AuditoriaService]
 })
 export class ManageMilitarComponent implements OnInit{
   displayedColumns: string[] = ['abrev', 'qas', 'nome_compl', 'cpf', 'sigla', 'edit'];
@@ -20,6 +22,7 @@ export class ManageMilitarComponent implements OnInit{
   responseMessage: any;
 
   constructor(private militarService: MilitarService,
+    private auditoriaService: AuditoriaService,
     private ngxService: NgxUiLoaderService,
     private dialog: MatDialog,
     private snackbarService: SnackbarService,
@@ -115,5 +118,25 @@ export class ManageMilitarComponent implements OnInit{
       this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.error)
     })
   }
-}
 
+  handleAuditAction(cpf: number){
+    this.auditarMilitar(cpf);
+  }
+
+  auditarMilitar(cpf: number){
+    this.auditoriaService.getData(cpf).subscribe((response: any)=>{
+      this.ngxService.stop();
+      this.dataSource = new MatTableDataSource(response);
+    }, (error: any)=>{
+      this.ngxService.stop();
+      console.log(error);
+      if(error.error?.message){
+        this.responseMessage = error.error?.message;
+      }
+      else{
+        this.responseMessage = GlobalConstants.genericError;
+      }
+      this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.error);
+    })
+  }
+}

@@ -1,35 +1,52 @@
 <mat-card>
     <mat-card-header>
-        <mat-card-title>Gerenciar Militares</mat-card-title>
+        <mat-card-title>Auditar Militares</mat-card-title>
     </mat-card-header>
     <mat-card-actions align="end">
-        <button mat-flat-button color="primary" class="float-right" (click)="handleAddAction()">Adicionar
-            Militar</button>
+        <button mat-flat-button color="primary" class="float-right" [routerLink]="['/picafumo/militar']">Gerenciar Militares</button>
     </mat-card-actions>
 </mat-card>
 <hr>
 <mat-card>
-    <mat-form-field appearance="fill">
-        <mat-label>Filtro</mat-label>
-        <input matInput (keyup)="applyFilter($event)" #input>
-    </mat-form-field>
+    <mat-card-header>
+        <mat-card-title>Carregamento de arquivos</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions align="end">
+        <input type="file" class="file-input" [accept]="requiredFileType" (change)="onChange($event)" #fileUpload>
+            <div class="file-upload">
+                <div class="tooltip">
+                    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                        <mat-icon>folder</mat-icon>
+                    </button>
+                    <span class="tooltiptext">Selecionar o arquivo</span>
+                </div>
+            </div>
+            {{fileName || "Nenhum arquivo carregado."}}
+            <div class="tooltip">
+                <button mat-mini-fab color="primary" class="upload-btn" id="btnUpload" (click)="onUpload()" hover="Carregar arquivo">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+                <span class="tooltiptext">Carregar o arquivo</span>
+            </div>
+    </mat-card-actions>
+</mat-card>
+<hr>
+<mat-card>
+    <div>
+        <textarea class="textArea" id="resultText" placeholder="Os dados do seu PDF aparecerão aqui..."></textarea>
+    </div>
 </mat-card>
 <hr>
 <div class="responsive-table">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <ng-container matColumnDef="abrev">
+        <ng-container matColumnDef="postoGrad">
             <th mat-header-cell *matHeaderCellDef>Posto / Grad</th>
-            <td mat-cell *matCellDef="let element">{{element.abrev}}</td>
+            <td mat-cell *matCellDef="let element">{{element.postoGrad}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="qas">
-            <th mat-header-cell *matHeaderCellDef>Cód QAS</th>
-            <td mat-cell *matCellDef="let element">{{element.qas}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="nome_compl">
+        <ng-container matColumnDef="nomeCompl">
             <th mat-header-cell *matHeaderCellDef>Nome Completo</th>
-            <td mat-cell *matCellDef="let element">{{element.nome_compl}}</td>
+            <td mat-cell *matCellDef="let element">{{element.nomeCompl}}</td>
         </ng-container>
 
         <ng-container matColumnDef="cpf">
@@ -37,24 +54,24 @@
             <td mat-cell *matCellDef="let element">{{element.cpf}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="sigla">
-            <th mat-header-cell *matHeaderCellDef>OM</th>
-            <td mat-cell *matCellDef="let element">{{element.sigla}}</td>
+        <ng-container matColumnDef="curso">
+            <th mat-header-cell *matHeaderCellDef>Curso</th>
+            <td mat-cell *matCellDef="let element">{{element.curso}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="edit">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let element" class="action-link">
-                <button mat-icon-button color="primary" matTooltip="Editar" (click)="handleEditAction(element)">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button color="primary" matTooltip="Deletar" (click)="handleDeleteAction(element)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-                <button mat-icon-button color="primary" matTooltip="Auditar" [routerLink]="['/picafumo/auditoria/5513291657']">
-                    <mat-icon>search</mat-icon>
-                </button>
-            </td>
+        <ng-container matColumnDef="modalidade">
+            <th mat-header-cell *matHeaderCellDef>Modalidade</th>
+            <td mat-cell *matCellDef="let element">{{element.modalidade}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="beneficio">
+            <th mat-header-cell *matHeaderCellDef>Benefício</th>
+            <td mat-cell *matCellDef="let element">{{element.beneficio}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="porcentagem">
+            <th mat-header-cell *matHeaderCellDef>Porcentagem</th>
+            <td mat-cell *matCellDef="let element">{{element.porcentagem}}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

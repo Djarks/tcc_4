@@ -1,0 +1,38 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+        <span class="title-center">{{dialogData.action}} Militar</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-dialog-content class="mat-typography">
+    <form [formGroup]="auditoriaForm">
+        <div fxFlex fxLayout="column">
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>CPF</mat-label>
+                    <input matInput formControlName="cpf" required>
+                    <mat-error *ngIf="auditoriaForm.controls.cpf.touched && auditoriaForm.controls.cpf.invalid">
+                        <span *ngIf="auditoriaForm.controls.cpf.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>ADICIONAL DE HABILITAÇÃO CADASTRADO</mat-label>
+                    <input matInput formControlName="maior_porcentagem" required>
+                    <mat-error *ngIf="auditoriaForm.controls.maior_porcentagem.touched && auditoriaForm.controls.maior_porcentagem.invalid">
+                        <span *ngIf="auditoriaForm.controls.maior_porcentagem.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>ADICIONAL DE HABILITAÇÃO RECEBIDO</mat-label>
+                    <input matInput formControlName="adic_hab" required>
+                    <mat-error *ngIf="auditoriaForm.controls.adic_hab.touched && auditoriaForm.controls.nome_guerra.invalid">
+                        <span *ngIf="auditoriaForm.controls.adic_hab.errors.required">Este campo é obrigatório.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+<mat-dialog-actions align="center">
+    <button mat-raised-button color="primary" mat-dialog-close>Fechar</button>
+</mat-dialog-actions>

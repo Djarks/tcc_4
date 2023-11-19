@@ -15,9 +15,12 @@ import { ManageUserComponent } from './manage-user/manage-user.component';
 import { UserComponent } from './dialog/user/user.component';
 import { ManageMilitarComponent } from './manage-militar/manage-militar.component';
 import { MilitarComponent } from './dialog/militar/militar.component';
-import { ResultadoComponent } from './dialog/resultado/resultado.component';
-import { AuditarComponent } from './auditar/auditar.component';
 import { AuditoriaComponent } from './auditoria/auditoria.component';
+import { AuditarComponent } from './auditar/auditar.component';
+import { AuditarMilitarComponent } from './dialog/auditar-militar/auditar-militar.component';
+
+
+
 
 @NgModule({
   imports: [
@@ -38,9 +41,9 @@ import { AuditoriaComponent } from './auditoria/auditoria.component';
     UserComponent,
     ManageMilitarComponent,
     MilitarComponent,
-    ResultadoComponent,
+    AuditoriaComponent,
     AuditarComponent,
-    AuditoriaComponent
+    AuditarMilitarComponent
   ]
 })
 export class MaterialComponentsModule {}
