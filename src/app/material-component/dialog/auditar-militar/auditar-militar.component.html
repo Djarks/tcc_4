@@ -4,35 +4,26 @@
     </mat-toolbar-row>
 </mat-toolbar>
 <mat-dialog-content class="mat-typography">
-    <form [formGroup]="auditoriaForm">
-        <div fxFlex fxLayout="column">
-            <div fxLayout="row wrap">
-                <mat-form-field appearance="fill" fxFlex>
-                    <mat-label>CPF</mat-label>
-                    <input matInput formControlName="cpf" required>
-                    <mat-error *ngIf="auditoriaForm.controls.cpf.touched && auditoriaForm.controls.cpf.invalid">
-                        <span *ngIf="auditoriaForm.controls.cpf.errors.required">Este campo é obrigatório.</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div fxLayout="row wrap">
-                <mat-form-field appearance="fill" fxFlex>
-                    <mat-label>ADICIONAL DE HABILITAÇÃO CADASTRADO</mat-label>
-                    <input matInput formControlName="maior_porcentagem" required>
-                    <mat-error *ngIf="auditoriaForm.controls.maior_porcentagem.touched && auditoriaForm.controls.maior_porcentagem.invalid">
-                        <span *ngIf="auditoriaForm.controls.maior_porcentagem.errors.required">Este campo é obrigatório.</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div fxLayout="row wrap">
-                <mat-form-field appearance="fill" fxFlex>
-                    <mat-label>ADICIONAL DE HABILITAÇÃO RECEBIDO</mat-label>
-                    <input matInput formControlName="adic_hab" required>
-                    <mat-error *ngIf="auditoriaForm.controls.adic_hab.touched && auditoriaForm.controls.nome_guerra.invalid">
-                        <span *ngIf="auditoriaForm.controls.adic_hab.errors.required">Este campo é obrigatório.</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
+    <div class="responsive-table">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="cpf">
+                <th mat-header-cell *matHeaderCellDef>CPF</th>
+                <td mat-cell *matCellDef="let element">{{element.cpf}}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="maior_porcentagem">
+                <th mat-header-cell *matHeaderCellDef>Adicional de Habilitação Cadastrado</th>
+                <td mat-cell *matCellDef="let element">{{element.maior_porcentagem}}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="adic_hab">
+                <th mat-header-cell *matHeaderCellDef>Adicional de Habilitação Recebido</th>
+                <td mat-cell *matCellDef="let element">{{element.adic_hab}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+    </div>
 <mat-dialog-actions align="center">
     <button mat-raised-button color="primary" mat-dialog-close>Fechar</button>
 </mat-dialog-actions>

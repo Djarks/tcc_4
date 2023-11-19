@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AuditoriaService } from 'src/app/services/auditoria.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { GlobalConstants } from 'src/app/shared/global-constants';
+import { ActivatedRoute } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-militar',
@@ -12,40 +13,31 @@ import { GlobalConstants } from 'src/app/shared/global-constants';
 })
 export class AuditarMilitarComponent implements OnInit {
   onAuditMilitar = new EventEmitter();
-  onEditMilitar = new EventEmitter();
-  auditoriaForm: any = FormGroup;
+  displayedColumns: string[] = ['cpf', 'maior_porcentagem', 'adic_hab'];
+  dataSource: any;
   dialogAction: any = "Auditar";
   action: any = "Auditar";
   responseMessage: any;
+  public get cpfAuditado(){
+	  return Number(this.activatedRoute.snapshot.paramMap.get('cpf'));
+  }
 
   constructor(@Inject(MAT_DIALOG_DATA) public dialogData: any,
-  private formBuilder: FormBuilder,
+  private activatedRoute: ActivatedRoute,
   private auditoriaService: AuditoriaService,
   public dialogRef: MatDialogRef<AuditarMilitarComponent>,
   private snackbarService: SnackbarService){}
 
   ngOnInit(): void {
-    this.auditoriaForm = this.formBuilder.group({
-      cpf:[null,[Validators.required]],
-      maior_porcentagem:[null,[Validators.required]],
-      adic_hab:[null,[Validators.required]]
-    });
-    this.get();
+    this.get(5513291657);
   }
 
-  get(){
-    var formData = this.auditoriaForm.value;
-    var dialogData = {
-      cpf:formData.cpf,
-      maior_porcentagem:formData.maior_porcentagem,
-      adic_hab:formData.adic_hab,
-      }
-    this.auditoriaService.getAuditoria(dialogData.cpf).subscribe((response: any)=>{
-      this.dialogRef.close();
-      this.onAuditMilitar.emit();
-      this.responseMessage = response.message;
-      this.snackbarService.openSnackBar(this.responseMessage, "Militar auditado com sucesso");
+  get(cpf: Number){ 
+    console.log(cpf);
+    this.auditoriaService.getAuditoria(cpf).subscribe((response: any)=>{
+      this.dataSource = new MatTableDataSource(response);
     }, (error: any)=>{
+      console.log(error);
       if(error.error?.message){
         this.responseMessage = error.error?.message;
       }
@@ -54,7 +46,7 @@ export class AuditarMilitarComponent implements OnInit {
       }
       this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.error);
     })
-}
+  }
 }
 
 

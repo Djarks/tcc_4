@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { GlobalConstants } from 'src/app/shared/global-constants';
 import { AuditoriaService } from 'src/app/services/auditoria.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AuditarMilitarComponent } from '../dialog/auditar-militar/auditar-militar.component';
 
 @Component({
   selector: 'app-auditar',
@@ -13,7 +15,7 @@ import { AuditoriaService } from 'src/app/services/auditoria.service';
 })
 
 export class AuditarComponent implements OnInit{
-  displayedColumns: string[] = ['postoGrad', 'nomeCompl', 'cpf', 'curso', 'modalidade', 'beneficio', 'porcentagem'];
+  displayedColumns: string[] = ['postoGrad', 'nomeCompl', 'cpf', 'curso', 'modalidade', 'beneficio', 'porcentagem', 'audit'];
   dataSource: any;
   responseMessage: any;
   public get cpfAuditado(){
@@ -29,7 +31,9 @@ export class AuditarComponent implements OnInit{
   constructor(private auditoriaService: AuditoriaService,
     private ngxService: NgxUiLoaderService,
     private snackbarService: SnackbarService,
-	  private activatedRoute: ActivatedRoute){
+	  private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog,
+    private router: Router){
   }
 
   ngOnInit(): void {
@@ -42,7 +46,7 @@ export class AuditarComponent implements OnInit{
 	  this.auditoriaService.getData(cpf);
   }
 
-  tableData(cpf: number){
+  tableData(cpf: Number){
     this.auditoriaService.getData(cpf).subscribe((response: any)=>{
       this.ngxService.stop();
       this.dataSource = new MatTableDataSource(response);
@@ -80,5 +84,21 @@ export class AuditarComponent implements OnInit{
 		.then(res => {
 		  return res.json()
 		});*/
+  }
+
+  handleAuditAction(values: any){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      action: 'Auditar',
+      data: values
+    }
+    dialogConfig.width = "850px";
+    const dialogRef = this.dialog.open(AuditarMilitarComponent, dialogConfig);
+    this.router.events.subscribe(()=>{
+      dialogRef.close();
+    });
+    const sub = dialogRef.componentInstance.onAuditMilitar.subscribe((response)=>{
+      this.tableData(this.cpfAuditado);
+    })
   }
 }

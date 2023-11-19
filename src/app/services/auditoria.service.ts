@@ -37,7 +37,7 @@ export class AuditoriaService{
   }
 
   getAuditoria(cpf: Number){
-    return this.httpClient.get(this.url + "/auditoria/upload/audit/"+cpf, {
+    return this.httpClient.get(this.url + "/upload/audit/"+cpf, {
       headers: new HttpHeaders().set('Content-Type', "application/json")
     })
   }
