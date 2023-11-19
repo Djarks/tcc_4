@@ -8,7 +8,6 @@ import { AuditoriaService } from 'src/app/services/auditoria.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ResultadoComponent } from '../dialog/resultado/resultado.component';
-import { AuditarMilitarComponent } from '../dialog/auditar-militar/auditar-militar.component';
 
 @Component({
   selector: 'app-auditoria',
@@ -91,6 +90,6 @@ export class AuditoriaComponent implements OnInit{
 		fetch('http://localhost:8080/upload/audit/5513291657')
 			.then(res => res.json())
 			.then(data => console.log(data))
-		this.dialog.open(AuditarMilitarComponent, this.data)
+		this.dialog.open(ResultadoComponent, this.data)
 	}
 }
